@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{524B99D1-B1C9-E83B-3D26-0D3F9E1D6935}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_WEBPLAYER;WEBPLUG;ENABLE_MICROPHONE;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;ENABLE_AUDIO_FMOD;ENABLE_NETWORK;ENABLE_MONO;ENABLE_PHYSICS;ENABLE_TERRAIN;ENABLE_CACHING;ENABLE_SUBSTANCE;ENABLE_GENERICS;ENABLE_CLOTH;ENABLE_MOVIES;ENABLE_AUDIO;ENABLE_WWW;ENABLE_SHADOWS;ENABLE_DUCK_TYPING;UNITY_4_0_0;UNITY_4_0;ENABLE_PROFILER;UNITY_EDITOR;UNITY_TEAM_LICENSE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+	<Reference Include="System" />
+    <Reference Include="System.XML" />
+	<Reference Include="System.Core" />
+	<Reference Include="UnityEngine">
+	  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>E:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <ItemGroup>
+     <Compile Include="Assets\HelpText.cs" />
+     <Compile Include="Assets\_Programming\Actor.cs" />
+     <Compile Include="Assets\_Programming\ActorManagement.cs" />
+     <Compile Include="Assets\_Programming\AstarCsharp\AStarPathFinding.cs" />
+     <Compile Include="Assets\_Programming\AstarCsharp\AStarSettingControl.cs" />
+     <Compile Include="Assets\_Programming\AstarCsharp\DebugAstar.cs" />
+     <Compile Include="Assets\_Programming\AstarCsharp\PathNode.cs" />
+     <Compile Include="Assets\_Programming\Buildable.cs" />
+     <Compile Include="Assets\_Programming\Controller.cs" />
+     <Compile Include="Assets\_Programming\Helper.cs" />
+     <Compile Include="Assets\_Programming\Highlighter.cs" />
+     <Compile Include="Assets\_Programming\Main.cs" />
+     <Compile Include="Assets\_Programming\Menu.cs" />
+     <Compile Include="Assets\_Programming\MeshCombine.cs" />
+     <Compile Include="Assets\_Programming\PrefabBank.cs" />
+     <Compile Include="Assets\_Programming\RTSCamera.cs" />
+     <Compile Include="Assets\_Programming\RayPick.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\BlockTile.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\BuildVisitor.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\BuildableSelectVisitor.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\CellManager.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\ConstructionVisitor.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\Element.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\FloorTile.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\IVisitor.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\RemoveVisitor.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\Tile.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\TileComponent.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\TileEditor.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\TileSelector.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\Wall.cs" />
+     <Compile Include="Assets\_Programming\TileSystem\WallTile.cs" />
+     <Compile Include="Assets\_Programming\enums.cs" />
+     <None Include="Assets\_Programming\Shaders\Highlighting.shader" />
+     <None Include="Assets\_Game\Materials\VTInput.shader" />
+     <None Include="Assets\_Programming\Shaders\SurfHightlighting.shader" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+	   Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  
+</Project>

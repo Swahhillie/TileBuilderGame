@@ -1,0 +1,32 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\_Programming\TileSystem\CellManager.cs">
+    <Files>
+      <File FileName="Assets\_Programming\TileSystem\CellManager.cs" Line="195" Column="18" />
+      <File FileName="Assets\_Programming\TileSystem\TileEditor.cs" Line="147" Column="38" />
+      <File FileName="Assets\_Programming\TileSystem\BuildVisitor.cs" Line="39" Column="47" />
+      <File FileName="Assets\_Programming\TileSystem\RemoveVisitor.cs" Line="17" Column="38" />
+      <File FileName="Assets\_Programming\TileSystem\ConstructionVisitor.cs" Line="72" Column="31" />
+      <File FileName="Assets\_Programming\TileSystem\BlockTile.cs" Line="27" Column="50" />
+      <File FileName="Assets\_Programming\Buildable.cs" Line="43" Column="83" />
+      <File FileName="Assets\_Programming\MeshCombine.cs" Line="113" Column="21" />
+      <File FileName="Assets\_Programming\TileSystem\TileComponent.cs" Line="5" Column="23" />
+      <File FileName="Assets\_Programming\TileSystem\Tile.cs" Line="6" Column="14" />
+      <File FileName="Assets\_Programming\TileSystem\FloorTile.cs" Line="20" Column="37" />
+      <File FileName="Assets\_Programming\TileSystem\WallTile.cs" Line="70" Column="28" />
+      <File FileName="Assets\_Programming\TileSystem\Wall.cs" Line="4" Column="14" />
+      <File FileName="Assets\_Programming\FramesPerSecond.js" Line="43" Column="20" />
+      <File FileName="Assets\_Programming\RTSCamera.cs" Line="1" Column="1" />
+      <File FileName="Assets\_Programming\Menu.cs" Line="152" Column="3" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
