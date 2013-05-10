@@ -8,7 +8,7 @@ public class CellManager : MonoBehaviour{
 	const int X = 0;
 	const int Y = 1;
 	
-	enum CellManagerState{
+	public enum CellManagerState{
 		NoTilesGenerated,
 		GeneratingTiles,
 		Ready
@@ -24,6 +24,7 @@ public class CellManager : MonoBehaviour{
 	public delegate void OnGenerateLevel ();
 	
 	private static List<OnGenerateLevel> onGenerateLevelFunctions = new List<OnGenerateLevel>();
+	public GUITexture tempLoadingbar;
 	
 	public void Start(){
 		Debug.Log("First Generate Tiles call");
@@ -41,7 +42,7 @@ public class CellManager : MonoBehaviour{
 	public void GenerateTiles(int width, int height){
 		//guard
 		if(_state == CellManagerState.GeneratingTiles){
-			Debug.Log("tiles are still being generated");
+			Debug.LogError("tiles are still being generated");
 		}
 		//cleanup old tiles. change the settings and call the default generator
 		
@@ -54,23 +55,31 @@ public class CellManager : MonoBehaviour{
 	}
 	private IEnumerator GenerateTilesReceiver(){
 		//does the actual generation
+		tempLoadingbar.enabled = true; //TEMP
 		_state = CellManagerState.GeneratingTiles;
+		int total = _height * _width;
 		for(int i = 0; i < _height; i++){
 			for(int j = 0; j < _width; j++){
 				_tiles[j,i] = CreateTile(j,i);
-				if( i * j  % spawnsPerFrame == 0){
-					Debug.Log( "progress " + i * j + " / " + _height * _width);
+				int done = (i * _width + j);
+				if( done % spawnsPerFrame == 0){
+					float completion = (float)done / (float)total ;
+					tempLoadingbar.pixelInset = new Rect(-32, -32, 64 * completion, 64);					//TEMPORARY MAGIC, THIS SHOULDNT BE HERE
+					Debug.Log( "progress " + done + " / " + total + ", " + completion * 100.0f + "%");
 					yield return null;
 					
 				}
 			}
 		}
-				
+		tempLoadingbar.enabled = false;	//TEMP	
 		
 		SetAllNeighbours();
 		SetAllWalls();
 		foreach(OnGenerateLevel func in onGenerateLevelFunctions) func();
 		_state = CellManagerState.Ready;
+	}
+	private void OnApplicationQuit(){
+		GenerateTiles(1,1);
 	}
 	private Tile CreateTile(int i, int j){
 		//do stuff to create a tile here that affect multiple tiles
@@ -82,6 +91,7 @@ public class CellManager : MonoBehaviour{
 		
 		if(_tiles != null){
 			//if width and height are changed this will fail
+			
 			for(int i = tiles.GetLowerBound(0) ; i <= tiles.GetUpperBound(0) ; i ++)
 				for(int j = tiles.GetLowerBound(1); j <= tiles.GetUpperBound(1); j++){
 					_tiles[i,j].Cleanup();
@@ -94,6 +104,8 @@ public class CellManager : MonoBehaviour{
 		foreach(Tile tile in tiles) SetNeighbours(tile);
 	}
 	private void SetAllWalls(){
+	//	System.Array.ForEach<Tile>(_tiles, x=>x.wallTile.InitializeWalls());
+		
 		for(int i = width -1; i >= 0; i--){
 			for(int j = height -1; j>= 0; j--){
 				_tiles[i,j].wallTile.InitializeWalls();
@@ -175,7 +187,9 @@ public class CellManager : MonoBehaviour{
 	}	
 	
 	//-------------------------- general access --------------------------------
-	
+	public CellManagerState state{
+		get{return _state;}
+	}
 	public int width{
 		get{ return _width;}
 	}

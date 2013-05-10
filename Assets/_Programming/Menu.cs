@@ -120,7 +120,7 @@ public class Menu : MonoBehaviour {
 			try{
 				 w = System.Convert.ToInt32(widthString);
 			}
-			catch(System.FormatException e){
+			catch{
 				
 				w = manager.width;
 				widthString = w.ToString();
@@ -128,7 +128,7 @@ public class Menu : MonoBehaviour {
 			try{
 				h = System.Convert.ToInt32(heightString);
 			}
-			catch(System.FormatException e){
+			catch{
 				
 				h = manager.height;
 				heightString = h.ToString();

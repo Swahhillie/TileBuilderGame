@@ -17,6 +17,9 @@ public class MeshCombine : MonoBehaviour {
 	public int rebatchThresshold = 10;
 	public float rebatchDelay = 2.0f;
 	private static MeshCombine instance = null;
+	
+	
+	private float rebatchCalledTime = 0.0f; //time when the last call to rebatchmeshes was made.
 	// Use this for initialization
 	private void Awake(){
 		CellManager.AddGenerateLevelCallback(DiscardCombined);
@@ -28,8 +31,8 @@ public class MeshCombine : MonoBehaviour {
 		//Debug.Log("Added " + buildable + " to be combined ");
 		if(toCombine.Count >= rebatchThresshold && !rebatchQueued){
 			//enough new buildable are in the scene to warrent a rebatching of the old meshes
-			rebatchQueued = true;
-			StartCoroutine(RebatchMeshes());
+			
+			RebatchMeshes();
 		}
 	}
 	public void RemoveCombineMesh(Buildable buildable){
@@ -42,8 +45,7 @@ public class MeshCombine : MonoBehaviour {
 			//the mesh must be removed from combined mesh.
 			
 			
-			//find in what layer we have to look for this buildable.
-			CellLayer layer = buildable.layer;
+			//find in what layer we have to look for this buildable
 			
 			toRebatch.Add(buildable.meshKey);		//rebatch queue is emptied at the end of this update, meshes will be regenerated
 			
@@ -60,7 +62,7 @@ public class MeshCombine : MonoBehaviour {
 			List<Buildable> allBuildables = manager.GetAllBuildables();
 			toCombine.AddRange(allBuildables.FindAll(x => toRebatch.Contains(x.meshKey)));
 			//toCombine.ForEach(x => x.ActivateChildren()); //activate all gameobject children so that the mesh filter can be found.
-			StartCoroutine(RebatchMeshes(true));
+			RebatchMeshes(true);
 		}
 		toRebatch.Clear();
 	}
@@ -73,10 +75,32 @@ public class MeshCombine : MonoBehaviour {
 	private void ClearMesh(int meshKey_){
 		combined[meshKey_].mesh = new Mesh();
 	}
-	private IEnumerator RebatchMeshes(bool imidiateMode = false){
-		if(!imidiateMode){
-			yield return new WaitForSeconds(rebatchDelay);//wait a little to allow big blocks off objects to complete up. //for loading levels
+	private void OnApplicationQuit(){
+		
+		DiscardCombined();
+	}
+	private void RebatchMeshes(bool imidiateMode = false){
+		rebatchQueued = true;
+		if(imidiateMode){
+			//yield return new WaitForSeconds(rebatchDelay);//wait a little to allow big blocks off objects to complete up. 
+			//while(manager.state != CellManager.CellManagerState.Ready)yield return null;//for loading levels
+			RebatchMeshesConcrete();	
+			rebatchQueued = false;
 		}
+		else{
+			rebatchCalledTime = Time.time;
+		}
+		
+	}
+	private void Update(){
+		if(rebatchQueued){
+			if(rebatchCalledTime + rebatchDelay <Time.time){
+				RebatchMeshesConcrete();
+				rebatchQueued = false;
+			}
+		}
+	}
+	public void RebatchMeshesConcrete(){
 		Debug.Log("Batching " + toCombine.Count + " meshes " );
 		
 		Dictionary<int, List<Buildable> > seperated = new Dictionary<int, List<Buildable> >();
@@ -113,13 +137,13 @@ public class MeshCombine : MonoBehaviour {
 					cbi[i].mesh = mf.sharedMesh;
 					cbi[i].transform = mf.transform.localToWorldMatrix;
 					
-					//the gameobject that this mesh if from can now be disabled, it will be renderered because its mesh is part of the combined mesh
+					//the renderer that this mesh has can now be disabled, it will be renderered because its mesh is part of the combined mesh
 					mf.gameObject.renderer.enabled = false;
 				}
 			}
 			
 			//adding the existing mesh to the combinemesh instances
-						
+			
 			cbi[cbi.Length -1].mesh = combined[meshKey].mesh;
 			cbi[cbi.Length -1].transform = combined[meshKey].transform.localToWorldMatrix;
 			
@@ -130,7 +154,6 @@ public class MeshCombine : MonoBehaviour {
 			
 		}
 		//finished. new blocks can now start a new timer for the meshcombine
-		rebatchQueued = false;
 	}
 	
 	public static MeshCombine Instance(){
@@ -141,6 +164,7 @@ public class MeshCombine : MonoBehaviour {
 		//this will create a new batch mesh when called. It should be called if a completely new mesh / material combo is created.
 		
 		MeshFilter mf = new GameObject("MeshHolder " + combined.Count).AddComponent<MeshFilter>(); //a gameobject that will hold the mesh and render it.
+		mf.mesh = new Mesh();
 		Renderer rend = mf.gameObject.AddComponent<MeshRenderer>();		//give the new go a renderer to render the batched mesh
 		mf.transform.parent = this.transform;							//organize the mesh as a child of this.
 		rend.materials = go.GetComponentInChildren<Renderer>().materials; //copy the materials over to the newly created renderer
