@@ -37,8 +37,6 @@ public class RTSCamera : MonoBehaviour {
 	}
 	public IEnumerator RotateSmoothed(Transform subject, Quaternion startR, Quaternion endR, float overTime){
 			
-		Quaternion start = startR;
-		Quaternion end = endR;
 		float startTime = Time.time;
 		float duration = overTime;
 		float percent = (Time.time - startTime) / duration;

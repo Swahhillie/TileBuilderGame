@@ -12,12 +12,16 @@ public class BuildVisitor : ConstructionVisitor {
 	}
 	
 	override protected void StartVisiting(){
+	
+	
+	
 		for(int i = _start[0]; i <= _end[0] ; i++){
 			for(int j = _start[1]; j <= _end[1]; j++){
 				Tile tile = _manager.GetTile(i, j);
 				tile.PassVisitor(this, _tileEditor.toolTarget);
 			}
 		}
+	
 	}
 	
 	override public void Visit(BlockTile blockTile){

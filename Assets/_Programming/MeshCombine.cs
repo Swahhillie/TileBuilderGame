@@ -22,8 +22,9 @@ public class MeshCombine : MonoBehaviour {
 	private float rebatchCalledTime = 0.0f; //time when the last call to rebatchmeshes was made.
 	// Use this for initialization
 	private void Awake(){
-		CellManager.AddGenerateLevelCallback(DiscardCombined);
+
 		manager = GameObject.FindWithTag("MainObject").GetComponent<CellManager>();
+		manager.OnGenerateLevel += DiscardCombined;
 	}
 	
 	public void AddCombineMesh(Buildable buildable){

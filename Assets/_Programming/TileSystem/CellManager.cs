@@ -21,9 +21,10 @@ public class CellManager : MonoBehaviour{
 	
 	private static CellManager manager;
 	public int spawnsPerFrame = 30;
-	public delegate void OnGenerateLevel ();
 	
-	private static List<OnGenerateLevel> onGenerateLevelFunctions = new List<OnGenerateLevel>();
+	public delegate void OnGenerateLevelHandler ();
+	
+	public event OnGenerateLevelHandler OnGenerateLevel;
 	public GUITexture tempLoadingbar;
 	
 	public void Start(){
@@ -75,7 +76,7 @@ public class CellManager : MonoBehaviour{
 		
 		SetAllNeighbours();
 		SetAllWalls();
-		foreach(OnGenerateLevel func in onGenerateLevelFunctions) func();
+		OnGenerateLevel();
 		_state = CellManagerState.Ready;
 	}
 	private void OnApplicationQuit(){
@@ -136,12 +137,12 @@ public class CellManager : MonoBehaviour{
 			
 		}
 	}
-	//--------------------------------registering callback functions ---------
-	public static void AddGenerateLevelCallback(OnGenerateLevel func){
-		Debug.Log("added a function to call after level generation");
-		onGenerateLevelFunctions.Add(func);
-	}
-	
+//	//--------------------------------registering callback functions ---------
+//	public static void AddGenerateLevelCallback(OnGenerateLevel func){
+//		Debug.Log("added a function to call after level generation");
+//		onGenerateLevelFunctions.Add(func);
+//	}
+//	
 	//--------------------------------access to tiles-------------------------
 	
 	public Tile GetTile(int i, int j){
@@ -151,6 +152,10 @@ public class CellManager : MonoBehaviour{
 		if(coords == null) return null;
 		return _tiles[coords[X], coords[Y]];
 	}
+	public Tile[,] GetTiles(){
+		return _tiles;
+	}
+	
 	public Tile[] GetNeighbours(Tile tile){
 		return tile.neighbours;
 	}

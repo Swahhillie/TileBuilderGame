@@ -15,7 +15,7 @@ public class Highlighter : MonoBehaviour {
 	
 	void Awake(){
 		manager = GameObject.FindGameObjectWithTag("MainObject").GetComponent<Main>().GetCellManager();
-		CellManager.AddGenerateLevelCallback(Rescale);
+		manager.OnGenerateLevel += (Rescale);
 	}
 	
 	private void Rescale(){

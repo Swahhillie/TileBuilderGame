@@ -5,6 +5,9 @@ using System.Collections.Generic;
 public class Selections{
 	public int[] current;
 	public int[] clicked;
+	public Vector3 cornerPointClicked; // corner near where the mouse was clicked down
+	public Vector3 cornerPointCurrent; // corner near where the mouse is now
+	
 	public List<int[]> painted = new List<int[]>();
 	
 	
@@ -76,6 +79,7 @@ public class Selections{
 	public void ClearPainted(){
 		painted.Clear();
 	}
+
 }
 
 
@@ -88,8 +92,6 @@ public class TileSelector : MonoBehaviour {
 	private Selections _selections = new Selections();
 	
 	public Highlighter highlighter;
-	
-	// Use this for initialization
 	
 	void Awake(){
 		GameObject highlighterGo = Instantiate(highlighter.gameObject) as GameObject;
@@ -114,13 +116,19 @@ public class TileSelector : MonoBehaviour {
 		if(picker.PickWithCamera(out coords)){
 			_selections.current = coords;						
 		}
-
+		Vector3 p;
+		if(picker.PickCornerPointCamera(out p))
+		{
+			_selections.cornerPointCurrent = p;
+		}
 		HighlightSelection();
 		
+
 		
 	}
 	public void OnStartSelect(){
 		_selections.clicked = _selections.current;
+		_selections.cornerPointClicked = _selections.cornerPointCurrent;
 	}
 	public void OnSelectionHold(){
 		_selections.AddToPainted(_selections.current);

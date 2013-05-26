@@ -32,7 +32,7 @@ public class Actor : MonoBehaviour {
 	
 	void Start () {
 		GameObject mainGo = GameObject.FindGameObjectWithTag("MainObject");
-		CellManager.AddGenerateLevelCallback(ResetPosition);
+		mainGo.GetComponent<CellManager>().OnGenerateLevel += ResetPosition;
 		manager = mainGo.GetComponent<Main>().GetCellManager();
 		picker = mainGo.GetComponent<RayPick>();
 		actorManager = mainGo.GetComponent<Main>().GetActorManager();

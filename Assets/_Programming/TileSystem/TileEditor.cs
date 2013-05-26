@@ -33,7 +33,7 @@ public class TileEditor : MonoBehaviour {
 	}
 	void OnRightMouseRelease(){
 		
-		Tile[] ts = cellManager.GetAccessableNeighbours(cellManager.GetTile(tileSelector.selections.current));
+		/*Tile[] ts = cellManager.GetAccessableNeighbours(cellManager.GetTile(tileSelector.selections.current));
 		Color c = new Color(Random.value, Random.value, Random.value, 1.0f);
 		if(ts != null){
 			for(int i = 0 ; i < ts.Length; i++){
@@ -42,7 +42,7 @@ public class TileEditor : MonoBehaviour {
 			}
 		}
 		else Debug.Log("ts is null");
-		
+		*/
 		
 		switch(_toolType){
 			case ToolType.Pathing:
