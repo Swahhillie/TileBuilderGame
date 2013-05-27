@@ -29,14 +29,14 @@ public class ConstructionVisitor : IVisitor {
 		int[][] startEnd = null;
 		switch(editor.toolTarget){
 			case CellLayer.Block: 
-				startEnd = selections.clickAndDragSelection;
+				startEnd = selections.ClickAndDragSelection;
 				if(startEnd != null){
 					_start = startEnd[0];
 					_end = startEnd[1];
 				}
 				break;
 			case CellLayer.Wall:
-				startEnd = selections.lineSelection;
+				startEnd = selections.LineSelection;
 				if(startEnd != null){
 					_start = startEnd[0];
 					_end = startEnd[1];
@@ -44,7 +44,7 @@ public class ConstructionVisitor : IVisitor {
 				
 				break;
 			case CellLayer.Floor: 
-				startEnd = selections.clickAndDragSelection;
+				startEnd = selections.ClickAndDragSelection;
 				if(startEnd != null){
 					_start = startEnd[0];
 					_end = startEnd[1];

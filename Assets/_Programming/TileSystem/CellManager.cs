@@ -190,7 +190,10 @@ public class CellManager : MonoBehaviour{
 		
 		return accessable;
 	}	
-	
+	public bool IsCoordInBound(int[] coord)
+	{
+		return (coord[0] >= 0 && coord[0] < width && coord[1] >= 0 && coord[1] < height);
+	}
 	//-------------------------- general access --------------------------------
 	public CellManagerState state{
 		get{return _state;}
