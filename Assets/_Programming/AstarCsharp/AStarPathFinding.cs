@@ -76,7 +76,7 @@ public class AStarPathFinding{
 		return (p1 - p2).magnitude * cost;
 	}
 	public static float DiagonalHeuristic(PathNode currentNode, PathNode destinationNode, float cost){
-		float diagCost = 1.414213f * cost; // sqrt(2) * cost
+		float diagCost = Mathf.Sqrt(cost * 2); // sqrt(2) * cost
 		int straight = (Mathf.Abs(currentNode.column - destinationNode.column) + Mathf.Abs(currentNode.row - destinationNode.row));
 		int diagonal = Mathf.Min(Mathf.Abs(currentNode.column - destinationNode.column), Mathf.Abs(currentNode.row - destinationNode.row));
 		return diagCost * diagonal + cost * (straight - 2 * diagonal);

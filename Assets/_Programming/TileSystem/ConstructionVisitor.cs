@@ -13,7 +13,7 @@ public class ConstructionVisitor : IVisitor {
 	protected int [] _end = null;
 	
 	protected Buildable toBuild; //cache toBuild
-	
+	protected Wall.Side _wallSide;
 	
 	public ConstructionVisitor (Selections selections, TileEditor editor, CellManager manager, Menu menu) {
 	//the build visitor reads from the different states to determine what it should do.
@@ -36,12 +36,13 @@ public class ConstructionVisitor : IVisitor {
 				}
 				break;
 			case CellLayer.Wall:
-				startEnd = selections.LineSelection;
-				if(startEnd != null){
-					_start = startEnd[0];
-					_end = startEnd[1];
+				if(selections.WallLine( out _start, out _end, out _wallSide))
+				{
+					
 				}
-				
+				else{
+					return;
+				}
 				break;
 			case CellLayer.Floor: 
 				startEnd = selections.ClickAndDragSelection;
@@ -52,11 +53,6 @@ public class ConstructionVisitor : IVisitor {
 				break;
 		}
 		
-		if(_start == null || _end == null){
-			Debug.Log("start or end is null, cannot pass visitor to blocks");
-			return;
-		}
-		StartVisiting();
 		//pass this object along to the cells in question.
 		
 	}
@@ -77,5 +73,21 @@ public class ConstructionVisitor : IVisitor {
 	}
 	public virtual void Visit(FloorTile floorTile){
 	
+	}
+	protected bool IsViable
+	{
+		get{	
+			if(_start == null || _end == null){
+				Debug.Log("start or end is null, cannot pass visitor to blocks");
+				return false;
+			}
+			else if(_manager.IsCoordInBound(_start) && _manager.IsCoordInBound(_end)){
+				return true;
+			}
+			else{
+				return false;
+			}
+			
+		}
 	}
 }

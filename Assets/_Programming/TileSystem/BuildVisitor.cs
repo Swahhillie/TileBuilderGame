@@ -9,6 +9,11 @@ public class BuildVisitor : ConstructionVisitor {
 		
 		//the build visitor reads from the different states to determine what it should do.
 		
+		
+		if(IsViable){
+			StartVisiting();
+		}
+		
 	}
 	
 	override protected void StartVisiting(){
@@ -35,7 +40,7 @@ public class BuildVisitor : ConstructionVisitor {
 		if(toBuild == null) toBuild = PrefabBank.GetBuildable(_menu.GetSelected(CellLayer.Wall), CellLayer.Wall);
 		bool horizontal = _start[0] == _end[0];
 		
-		if(wallTile.BuildWall(horizontal? Wall.Side.West : Wall.Side.North, toBuild)){
+		if(wallTile.BuildWall(_wallSide, toBuild)){
 			
 		}
 
