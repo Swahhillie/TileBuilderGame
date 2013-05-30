@@ -49,6 +49,7 @@
      <Compile Include="Assets\_Programming\ActorManagement.cs" />
      <Compile Include="Assets\_Programming\AstarCsharp\AStarPathFinding.cs" />
      <Compile Include="Assets\_Programming\AstarCsharp\AStarSettingControl.cs" />
+     <Compile Include="Assets\_Programming\AstarCsharp\AStarSettings.cs" />
      <Compile Include="Assets\_Programming\AstarCsharp\DebugAstar.cs" />
      <Compile Include="Assets\_Programming\AstarCsharp\PathNode.cs" />
      <Compile Include="Assets\_Programming\Buildable.cs" />
